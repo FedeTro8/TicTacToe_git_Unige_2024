@@ -10,7 +10,7 @@
 AGameField::AGameField()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = false;
+	PrimaryActorTick.bCanEverTick = false;   //il campo è sempre consistente, non servono tick perchè non cambia nel tempo 
 	// size of winnning line
 	WinSize = 3;
 	// size of the field (3x3)
@@ -27,14 +27,14 @@ void AGameField::OnConstruction(const FTransform& Transform)
 {
 	Super::OnConstruction(Transform);
 	//normalized tilepadding
-	NextCellPositionMultiplier = (TileSize + TileSize * CellPadding) / TileSize; 
+	NextCellPositionMultiplier = (TileSize + TileSize * CellPadding) / TileSize; //serve a sapere dove di trova la prossima cella 
 }
 
 // Called when the game starts or when spawned
 void AGameField::BeginPlay()
 {
 	Super::BeginPlay();
-	GenerateField();
+	GenerateField();  //lo stato dell' oggetto decidiamo di mantenerlo nella griglia stessa 
 }
 
 void AGameField::ResetField()
@@ -60,12 +60,12 @@ void AGameField::GenerateField()
 		for (int32 IndexY = 0; IndexY < Size; IndexY++)
 		{
 			FVector Location = AGameField::GetRelativeLocationByXYPosition(IndexX, IndexY);
-			ATile* Obj = GetWorld()->SpawnActor<ATile>(TileClass, Location, FRotator::ZeroRotator);
-			const float TileScale = TileSize / 100.f;
-			const float Zscaling = 0.2f;
-			Obj->SetActorScale3D(FVector(TileScale, TileScale, Zscaling));
+			ATile* Obj = GetWorld()->SpawnActor<ATile>(TileClass, Location, FRotator::ZeroRotator);//classe oggetto da spawnare, posizione e rotazione. 
+			const float TileScale = TileSize / 100.f;  
+			const float Zscaling = 0.2f;  
+			Obj->SetActorScale3D(FVector(TileScale, TileScale, Zscaling)); //obj è la tile che sto costruendo
 			Obj->SetGridPosition(IndexX, IndexY);
-			TileArray.Add(Obj);
+			TileArray.Add(Obj);   //due metodi che fanno la medesima cosa, ma mappa è una data structure che andrebbe meglio se avessimo più tile 
 			TileMap.Add(FVector2D(IndexX, IndexY), Obj);
 		}
 	}
@@ -83,7 +83,7 @@ TArray<ATile*>& AGameField::GetTileArray()
 
 FVector AGameField::GetRelativeLocationByXYPosition(const int32 InX, const int32 InY) const
 {
-	return TileSize * NextCellPositionMultiplier * FVector(InX, InY, 0);
+	return TileSize * NextCellPositionMultiplier * FVector(InX, InY, 0); //la prima cella viene messa in 0,0, notare la z a zero perchè ci muoviamo nello spazio 3d ma noi simuliamo uno 2d 
 }
 
 FVector2D AGameField::GetXYPositionByRelativeLocation(const FVector& Location) const

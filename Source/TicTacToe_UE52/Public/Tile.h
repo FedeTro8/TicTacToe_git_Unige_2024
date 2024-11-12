@@ -9,8 +9,9 @@
 UENUM()
 enum class ETileStatus : uint8
 {
-	EMPTY     UMETA(DisplayName = "Empty"),
-	OCCUPIED      UMETA(DisplayName = "Occupied"),
+	EMPTY     UMETA(DisplayName = "Empty"),//e numeratore, la macro accanto serve per visualizzarla tramite etichetta
+	OCCUPIED      UMETA(DisplayName = "Occupied"), //lavorano come bool ma eliminano ambiguità di interpretazione umana
+
 };
 
 UCLASS()
@@ -32,7 +33,8 @@ public:
 	int32 GetOwner();
 
 	// set the (x, y) position
-	void SetGridPosition(const double InX, const double InY);
+	void SetGridPosition(const double InX, const double InY); //setta la posizione della cella 
+
 
 	// get the (x, y) position
 	FVector2D GetGridPosition();
@@ -55,10 +57,11 @@ protected:
 
 	// (x, y) position of the tile
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	FVector2D TileGridPosition;
+	FVector2D TileGridPosition;  //posizione del centro del "rettangolo"
 
 //public:	
 //	// Called every frame
 //	virtual void Tick(float DeltaTime) override;
+	// a tile il tick non serve a nulla
 
 };

@@ -7,18 +7,18 @@
 ATile::ATile()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = false;
+	PrimaryActorTick.bCanEverTick = false; //a false perchè non ne abbiamo bisogno
 
 	// template function that creates a components
-	Scene = CreateDefaultSubobject<USceneComponent>(TEXT("Scene"));
+	Scene = CreateDefaultSubobject<USceneComponent>(TEXT("Scene"));                                   //servono per aggingerle con una forma nella scena 
 	StaticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMeshComponent"));
 
 	// every actor has a RootComponent that defines the transform in the World
 	SetRootComponent(Scene);
-	StaticMeshComponent->SetupAttachment(Scene);
+	StaticMeshComponent->SetupAttachment(Scene); //attacco il static mesh alla scene
 
-	Status = ETileStatus::EMPTY;
-	PlayerOwner = -1;
+	Status = ETileStatus::EMPTY; //per defualt la casella è vuota
+	PlayerOwner = -1;            //per defualt non appartiene ne al player ne all' ia (contrassegnati con 0 e 1)
 	TileGridPosition = FVector2D(0, 0);
 
 }
@@ -41,7 +41,7 @@ int32 ATile::GetOwner()
 
 void ATile::SetGridPosition(const double InX, const double InY)
 {
-	TileGridPosition.Set(InX, InY);
+	TileGridPosition.Set(InX, InY); //ricordo che è un vettore
 }
 
 FVector2D ATile::GetGridPosition()
