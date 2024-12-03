@@ -17,8 +17,8 @@ ABaseSign::ABaseSign()
 void ABaseSign::BeginPlay()
 {
 	Super::BeginPlay();
-	ATTT_GameMode* GameMode = Cast<ATTT_GameMode>(GetWorld()->GetAuthGameMode());
-	GameMode->GField->OnResetEvent.AddDynamic(this, &ABaseSign::SelfDestroy);
+	ATTT_GameMode* GameMode = Cast<ATTT_GameMode>(GetWorld()->GetAuthGameMode());    //cast dalla gamemode di base alla mia gamemode TTT_GameMode
+	GameMode->GField->OnResetEvent.AddDynamic(this, &ABaseSign::SelfDestroy);    //chiama self destroy
 }
 
 // Called every frame

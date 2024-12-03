@@ -39,7 +39,7 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	virtual void OnTurn() override;
+	virtual void OnTurn() override;   //override non è obblogatorio ma il compilatore attua delle ottimizzazioni 
 	virtual void OnWin() override;
 	virtual void OnLose() override;
 

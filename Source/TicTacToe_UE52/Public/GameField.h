@@ -8,7 +8,7 @@
 #include "GameField.generated.h"
 
 // macro declaration for a dynamic multicast delegate
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnReset);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnReset);           //serve per la creazione degli eventi 
 
 UCLASS()
 class TICTACTOE_UE52_API AGameField : public AActor
@@ -32,7 +32,7 @@ public:
 	// BlueprintAssignable Usable with Multicast Delegates only. Exposes the property for assigning in Blueprints.
 	// declare a variable of type FOnReset (delegate)
 	UPROPERTY(BlueprintAssignable)
-		FOnReset OnResetEvent;
+		FOnReset OnResetEvent;     //creazione della variabile dell' evento Fonreset è il nome del tipo del delaegato, puo essere utilizzato qualsiasi nome dato che lo creo io
 
 	// size of field
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)

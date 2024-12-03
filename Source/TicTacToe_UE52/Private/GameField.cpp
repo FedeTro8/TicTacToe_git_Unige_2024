@@ -45,7 +45,7 @@ void AGameField::ResetField()
 	}
 
 	// send broadcast event to registered objects 
-	OnResetEvent.Broadcast();
+	OnResetEvent.Broadcast();                         
 
 	ATTT_GameMode* GameMode = Cast<ATTT_GameMode>(GetWorld()->GetAuthGameMode());
 	GameMode->IsGameOver = false;

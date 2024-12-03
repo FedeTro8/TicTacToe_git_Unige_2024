@@ -1,5 +1,5 @@
 // Fill out your copyright notice in the Description page of Project Settings.
-
+//Actor per rappresentare il simbolo della X e della O 
 #pragma once
 
 #include "CoreMinimal.h"

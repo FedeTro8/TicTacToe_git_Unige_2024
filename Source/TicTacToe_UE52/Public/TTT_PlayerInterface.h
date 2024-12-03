@@ -6,7 +6,7 @@
 #include "UObject/Interface.h"
 #include "TTT_PlayerInterface.generated.h"
 
-UENUM()
+UENUM() //enumerativo per segnalare preso da X , da O oppure empty 
 enum class ESign : uint8
 {
 	X,
@@ -24,8 +24,8 @@ class UTTT_PlayerInterface : public UInterface
 /**
  * 
  */
-class TICTACTOE_UE52_API ITTT_PlayerInterface
-{
+class TICTACTOE_UE52_API ITTT_PlayerInterface //interfaccia comune per ogni tipo di classe derivata
+{												//notare che inizia per I e non per U essendo un interface e non un Uobject 
 	GENERATED_BODY()
 
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.

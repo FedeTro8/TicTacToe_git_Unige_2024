@@ -11,16 +11,15 @@
 // Sets default values
 ATTT_HumanPlayer::ATTT_HumanPlayer()
 {
- 	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bCanEverTick = true;  //ci serve per updatare il nostro stato
 	// Set this pawn to be controlled by the lowest-numbered player
-	AutoPossessPlayer = EAutoReceiveInput::Player0;
+	AutoPossessPlayer = EAutoReceiveInput::Player0; //solitamente i player umani sono player 0 
 	// create a camera component
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	//set the camera as RootComponent
 	SetRootComponent(Camera);
 	// get the game instance reference
-	GameInstance = Cast<UTTT_GameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+	GameInstance = Cast<UTTT_GameInstance>(UGameplayStatics::GetGameInstance(GetWorld())); //la classe gameplay statics mi permette di creare funzioni statiche per la gameistance 
 	// default init values
 	PlayerNumber = -1;
 	Sign = ESign::E;
@@ -51,7 +50,7 @@ void ATTT_HumanPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 void ATTT_HumanPlayer::OnTurn()
 {
 	IsMyTurn = true;
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("Your Turn"));
+	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("Your Turn")); //DA USARE SOLAMENTE IN DEBUG, non è la ui 8 (che è quella sotto) 
 	GameInstance->SetTurnMessage(TEXT("Human Turn"));
 }
 
@@ -71,20 +70,21 @@ void ATTT_HumanPlayer::OnLose()
 void ATTT_HumanPlayer::OnClick()
 {
 	//Structure containing information about one hit of a trace, such as point of impact and surface normal at that point
-	FHitResult Hit = FHitResult(ForceInit);
+	FHitResult Hit = FHitResult(ForceInit);	
+
 	// GetHitResultUnderCursor function sends a ray from the mouse position and gives the corresponding hit results
 	GetWorld()->GetFirstPlayerController()->GetHitResultUnderCursor(ECollisionChannel::ECC_Pawn, true, Hit);
-	if (Hit.bBlockingHit && IsMyTurn)
+	if (Hit.bBlockingHit && IsMyTurn) //devo cliccare sulla cella e deve essere 
 	{
 		if (ATile* CurrTile = Cast<ATile>(Hit.GetActor()))
 		{
-			if (CurrTile->GetTileStatus() == ETileStatus::EMPTY)
+			if (CurrTile->GetTileStatus() == ETileStatus::EMPTY) //se la casella è vuota 
 			{
 				// GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("clicked"));
 				CurrTile->SetTileStatus(PlayerNumber, ETileStatus::OCCUPIED);
-				FVector SpawnPosition = CurrTile->GetActorLocation();
+				FVector SpawnPosition = CurrTile->GetActorLocation();  //prende la posizione dello spazio della cella selezionata
 				ATTT_GameMode* GameMode = Cast<ATTT_GameMode>(GetWorld()->GetAuthGameMode());
-				GameMode->SetCellSign(PlayerNumber, SpawnPosition);
+				GameMode->SetCellSign(PlayerNumber, SpawnPosition); //mette il segno giusto
 				IsMyTurn = false;
 			}
 		}
